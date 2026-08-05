@@ -17,17 +17,17 @@ observations:
 rating:
   day: 5
 editor:
-  version: 1
+  version: 2
 ---
 
-# Day 1
+# День 1
 
-## Summary
+## Итоги дня
 
-The first day was primarily logistical. The main goal was to leave Jakarta and begin the journey toward the mountains.
+Первый день оказался в первую очередь логистическим. Главной задачей было выбраться из Джакарты и начать движение в сторону гор.
 
-Jakarta immediately made a poor impression: dense chaotic traffic, constant congestion, and almost no enjoyment from riding.
+Джакарта сразу оставила плохое впечатление: плотный хаотичный трафик, постоянные пробки и почти полное отсутствие удовольствия от езды.
 
-The real journey began only after reaching the Bukit Pelangi area. This was the first place with enjoyable mountain roads and the feeling of freedom that became the foundation of the trip.
+Настоящее путешествие началось только после выезда в район Bukit Pelangi. Именно там впервые появились приятные горные дороги и ощущение свободы, ради которого и затевалась эта поездка.
 
-The first day established one of the main principles of the entire expedition: the farther from large cities, the more enjoyable motorcycle travel becomes.
+Первый день закрепил один из главных принципов всей экспедиции: чем дальше от крупных городов, тем приятнее становится мотопутешествие.
