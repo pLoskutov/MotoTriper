@@ -30,3 +30,17 @@ jobs:
       - name: List result
         run: |
           find docs/drone/tiles
+  - name: Commit generated tiles
+    run: |
+      git config user.name "github-actions[bot]"
+      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      git add docs/drone/tiles
+
+      if git diff --cached --quiet; then
+        echo "Nothing to commit"
+        exit 0
+      fi
+
+      git commit -m "Generate tiles"
+      git push
