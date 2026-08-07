@@ -1,0 +1,32 @@
+name: Test GDAL
+
+on:
+  push:
+    paths:
+      - 'docs/drone/*.tif'
+      - '.github/workflows/tiles.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install GDAL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gdal-bin python3-gdal
+
+      - name: Show GDAL version
+        run: |
+          gdalinfo --version
+
+      - name: Generate tiles
+        run: |
+          mkdir -p docs/drone/tiles
+          gdal2tiles.py --xyz -z 22 -w none docs/drone/6129D6D6-8041-4906-AD19-9C23C4A0CB99.tif docs/drone/tiles
+
+      - name: List result
+        run: |
+          find docs/drone/tiles
