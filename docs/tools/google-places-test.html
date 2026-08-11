@@ -1,18 +1,4 @@
-<!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Google Places — координаты</title>
-<style>body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:20px;line-height:1.4}input,textarea,button{font-size:16px;width:100%;box-sizing:border-box;margin:6px 0;padding:10px}textarea{height:280px}button{font-weight:600}pre{white-space:pre-wrap;word-break:break-word;background:#f4f4f4;padding:12px;border-radius:8px}.small{font-size:13px;color:#666}</style>
-</head>
-<body>
-<h2>Google Places — 50 точек</h2>
-<p class="small">Вставь API key. Запросы идут напрямую к Google Places API. Ключ не сохраняется.</p>
-<label>Google API key</label>
-<input id="key" type="password" placeholder="Вставь API key">
-<label>Google Maps URL — один на строку</label>
-<textarea id="q">https://www.google.com/maps/place/Panorama+Puncak+Batudindiang/data=!4m2!3m1!1s0x2fd537e97e871ffd:0x1ab4b92a908af6dd
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Google Places — координаты</title><style>body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:20px;line-height:1.4}input,textarea,button{font-size:16px;width:100%;box-sizing:border-box;margin:6px 0;padding:10px}textarea{height:280px}button{font-weight:600}pre{white-space:pre-wrap;word-break:break-word;background:#f4f4f4;padding:12px;border-radius:8px}.small{font-size:13px;color:#666}</style></head><body><h2>Google Places — 50 точек</h2><p class="small">Вставь API key. Запросы идут напрямую к Google Places API. Ключ не сохраняется.</p><label>Google API key</label><input id="key" type="password" placeholder="Вставь API key"><label>Google Maps URL — один на строку</label><textarea id="q">https://www.google.com/maps/place/Panorama+Puncak+Batudindiang/data=!4m2!3m1!1s0x2fd537e97e871ffd:0x1ab4b92a908af6dd
 https://www.google.com/maps/place/Panorama+Tabek+Patah/data=!4m2!3m1!1s0x2fd535dc0c92cb85:0x37a90c9b173d3761
 https://www.google.com/maps/place/View+Point+Tongging+Geopark+Kaldera+Toba/data=!4m2!3m1!1s0x3031b336f603d02b:0x9b37d4e1c5e0ed67
 https://www.google.com/maps/place/Taman+Ngarai+Maaram+Bukittinggi/data=!4m2!3m1!1s0x2fd538a4f06fdf6b:0x9eee252ea9965c08
@@ -61,39 +47,4 @@ https://www.google.com/maps/place/Pantai+Sungai+Suci/data=!4m2!3m1!1s0x2e36b2895
 https://www.google.com/maps/place/Kebun+Teh+Kabawetan/data=!4m2!3m1!1s0x2e313392e3d066d7:0xc1385ac5d1fff6a5
 https://www.google.com/maps/place/Tes+Lake/data=!4m2!3m1!1s0x2e316c298ee6b589:0xdb294876f5e71a11
 https://www.google.com/maps/place/Mount+Kaba/data=!4m2!3m1!1s0x2e312fe16eca5943:0xb46ba8e1fdef511c
-https://www.google.com/maps/place/Ombilin+Coal+Mining+Heritage+of+Sawahlunto/data=!4m2!3m1!1s0x2e2b2f00005c6d59:0x4445bec1ae9cb4c1</textarea>
-<button id="run">Получить координаты</button>
-<button id="copy">Скопировать результат</button>
-<pre id="out">Результат появится здесь.</pre>
-<script>
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-let last='';
-document.getElementById('run').addEventListener('click', async()=>{
- const key=document.getElementById('key').value.trim();
- const urls=document.getElementById('q').value.split(/\n+/).map(x=>x.trim()).filter(Boolean);
- const out=document.getElementById('out');
- if(!key){out.textContent='Вставь API key.';return}
- out.textContent='Запросы выполняются...'; let result=[];
- for(let i=0;i<urls.length;i++){
-  const url=urls[i];
-  const decoded=decodeURIComponent(url);
-  let name='';
-  const m=decoded.match(/\/maps\/place\/([^/]+)\/data=/);
-  if(m) name=m[1].replace(/\+/g,' ');
-  else if(url.includes('/maps/search/')) name=url.split('/maps/search/')[1];
-  else name=url;
-  try{
-   const r=await fetch('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'Content-Type':'application/json','X-Goog-Api-Key':key,'X-Goog-FieldMask':'places.id,places.displayName,places.formattedAddress,places.location'},body:JSON.stringify({textQuery:`${name}, Indonesia`,pageSize:1})});
-   const j=await r.json();
-   if(!r.ok) result.push(`${i+1}. ${name}\nERROR ${r.status}: ${JSON.stringify(j)}`);
-   else if(!j.places?.length) result.push(`${i+1}. ${name}\nНЕ НАЙДЕНО`);
-   else {const p=j.places[0],loc=p.location||{};result.push(`${i+1}. ${name}\n→ ${p.displayName?.text||''}\n→ ${p.formattedAddress||''}\n→ ${loc.latitude}, ${loc.longitude}\n→ ${p.id||''}`)}
-  }catch(e){result.push(`${i+1}. ${name}\nERROR: ${e}`)}
-  out.textContent=result.join('\n\n');
- }
- last=result.join('\n\n');
-});
-document.getElementById('copy').addEventListener('click',async()=>{if(!last)return;try{await navigator.clipboard.writeText(last);alert('Скопировано')}catch(e){prompt('Скопируй результат:',last)}});
-</script>
-</body>
-</html>
+https://www.google.com/maps/place/Ombilin+Coal+Mining+Heritage+of+Sawahlunto/data=!4m2!3m1!1s0x2e2b2f00005c6d59:0x4445bec1ae9cb4c1</textarea><button id="run">Получить координаты</button><button id="copy" type="button">Скопировать результат</button><pre id="out">Результат появится здесь.</pre><script>let last='';function getName(url){try{const decoded=decodeURIComponent(url);const m=decoded.match(/\/maps\/place\/([^/]+)\/data=/);if(m)return m[1].replace(/\+/g,' ');if(url.includes('/maps/search/'))return decodeURIComponent(url.split('/maps/search/')[1])}catch(e){}return url}function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';ta.style.top='0';document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);let ok=false;try{ok=document.execCommand('copy')}catch(e){}document.body.removeChild(ta);return ok}document.getElementById('run').addEventListener('click',async()=>{const key=document.getElementById('key').value.trim();const urls=document.getElementById('q').value.split(/\n+/).map(x=>x.trim()).filter(Boolean);const out=document.getElementById('out');if(!key){out.textContent='Вставь API key.';return}out.textContent='Запросы выполняются...';let result=[];for(let i=0;i<urls.length;i++){const name=getName(urls[i]);try{const r=await fetch('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'Content-Type':'application/json','X-Goog-Api-Key':key,'X-Goog-FieldMask':'places.id,places.displayName,places.formattedAddress,places.location'},body:JSON.stringify({textQuery:`${name}, Indonesia`,pageSize:1})});const j=await r.json();if(!r.ok)result.push(`${i+1}. ${name}\nERROR ${r.status}: ${JSON.stringify(j)}`);else if(!j.places?.length)result.push(`${i+1}. ${name}\nНЕ НАЙДЕНО`);else{const p=j.places[0],loc=p.location||{};result.push(`${i+1}. ${name}\n→ ${p.displayName?.text||''}\n→ ${p.formattedAddress||''}\n→ ${loc.latitude}, ${loc.longitude}\n→ ${p.id||''}`)}}catch(e){result.push(`${i+1}. ${name}\nERROR: ${e}`)}last=result.join('\n\n');out.textContent=last}});document.getElementById('copy').addEventListener('click',async()=>{const text=last||document.getElementById('out').textContent;if(!text||text==='Результат появится здесь.')return;let ok=false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);ok=true}}catch(e){}if(!ok)ok=fallbackCopy(text);const b=document.getElementById('copy');const old=b.textContent;b.textContent=ok?'Скопировано ✓':'Не удалось скопировать';setTimeout(()=>b.textContent=old,1500)});</script></body></html>
