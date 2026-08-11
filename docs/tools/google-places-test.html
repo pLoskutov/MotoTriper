@@ -3,56 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Google Places — тест координат</title>
-<style>body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:20px;line-height:1.4}input,textarea,button{font-size:16px;width:100%;box-sizing:border-box;margin:6px 0;padding:10px}textarea{height:180px}button{font-weight:600}pre{white-space:pre-wrap;word-break:break-word;background:#f4f4f4;padding:12px;border-radius:8px}</style>
+<title>Google Places — координаты</title>
+<style>body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:20px;line-height:1.4}input,textarea,button{font-size:16px;width:100%;box-sizing:border-box;margin:6px 0;padding:10px}textarea{height:280px}button{font-weight:600}pre{white-space:pre-wrap;word-break:break-word;background:#f4f4f4;padding:12px;border-radius:8px}.small{font-size:13px;color:#666}</style>
 </head>
 <body>
-<h2>Google Places — проверка координат</h2>
-<p>API key не сохраняется и используется только для запросов к Google Places API.</p>
+<h2>Google Places — 50 точек</h2>
+<p class="small">Вставь API key. Запросы идут напрямую к Google Places API. Ключ не сохраняется.</p>
 <label>Google API key</label>
 <input id="key" type="password" placeholder="Вставь API key">
-<label>Запросы — один объект на строку</label>
-<textarea id="q">Sianok Valley Panoramic, Bukittinggi, West Sumatra, Indonesia
-Puncak Lawang, Agam, West Sumatra, Indonesia
-Puncak Taruko, Agam, West Sumatra, Indonesia
-Panorama Koto Barangai, West Sumatra, Indonesia
-Tapian Tabiang Barasok, West Sumatra, Indonesia
-Sarasah Bunta Waterfall, Lima Puluh Kota, West Sumatra, Indonesia
-Harau Getaway, Harau, Lima Puluh Kota, West Sumatra, Indonesia
-Batu Lubang Sibolga, Sibolga, North Sumatra, Indonesia
-Goa Ngalau Indah, Payakumbuh, West Sumatra, Indonesia
-Tugu Khatulistiwa Koto Alam, Lima Puluh Kota, West Sumatra, Indonesia
-Ekuator - Alahan mati, West Sumatra, Indonesia
-Guo Kalaluang, Padang, West Sumatra, Indonesia
-Panorama Malalak, Agam, West Sumatra, Indonesia
-Kelok 12, West Sumatra, Indonesia
-Kelok 9, Lima Puluh Kota, West Sumatra, Indonesia
-Kelok 44 Sumbar, Agam, West Sumatra, Indonesia
-Lake Diatas, Solok, West Sumatra, Indonesia
-Lake Dibawah, Solok, West Sumatra, Indonesia
-Lake Gunung Tujuh, Kerinci, Jambi, Sumatra, Indonesia
-Stasiun Lubuk Linggau, Lubuklinggau, South Sumatra, Indonesia</textarea>
-<button id="run">Проверить</button>
+<label>Google Maps URL — один на строку</label>
+<textarea id="q">https://www.google.com/maps/place/Panorama+Puncak+Batudindiang/data=!4m2!3m1!1s0x2fd537e97e871ffd:0x1ab4b92a908af6dd
+https://www.google.com/maps/place/Panorama+Tabek+Patah/data=!4m2!3m1!1s0x2fd535dc0c92cb85:0x37a90c9b173d3761
+https://www.google.com/maps/place/View+Point+Tongging+Geopark+Kaldera+Toba/data=!4m2!3m1!1s0x3031b336f603d02b:0x9b37d4e1c5e0ed67
+https://www.google.com/maps/place/Taman+Ngarai+Maaram+Bukittinggi/data=!4m2!3m1!1s0x2fd538a4f06fdf6b:0x9eee252ea9965c08
+https://www.google.com/maps/place/Koto+Gadang/data=!4m2!3m1!1s0x2fd53f31e2aa61a7:0x9f21e92c744b4827
+https://www.google.com/maps/place/Japanese+Tunnel+Bukittinggi/data=!4m2!3m1!1s0x2fd538bbd2c73449:0x57754f9fe912dcab
+https://www.google.com/maps/place/Janjang+Koto+Gadang/data=!4m2!3m1!1s0x2fd5475115555555:0xfdfc3a605ff3afe3
+https://www.google.com/maps/place/Pantai+Sasak/data=!4m2!3m1!1s0x2fd5881f5fa96577:0x983c0345fdd3560a
+https://www.google.com/maps/search/1.21E-5,100.0760648
+https://www.google.com/maps/search/-3.0E-7,99.8085406
+https://www.google.com/maps/place/Air+Terjun+Kelok+Jariang/data=!4m2!3m1!1s0x2fd4a50066cf6cc3:0x51c0154489431367
+https://www.google.com/maps/place/Bulaan+Tabek+View/data=!4m2!3m1!1s0x2fd53b401ec02527:0x245bc46ae4f5df02
+https://www.google.com/maps/place/Tempat+pertanian/data=!4m2!3m1!1s0x2fd53b55bc31f9c3:0x8783fd5b47baad8a
+https://www.google.com/maps/place/Area+55/data=!4m2!3m1!1s0x2fd52521e95e4f19:0x6413f51dad9a91ec
+https://www.google.com/maps/place/Museum+Bustanil+Arifin+PDIKM/data=!4m2!3m1!1s0x2fd525445e3a0545:0x1b986ed23b6c70e4
+https://www.google.com/maps/place/Jembatan+Kembar+Silaiang/data=!4m2!3m1!1s0x2fd5250003715d2d:0x6a6e5f839272bbb8
+https://www.google.com/maps/place/Wisata+Sajuta+Janjang/data=!4m2!3m1!1s0x2fd539f1e4e7ec93:0xcd11cd77acf14440
+https://www.google.com/maps/place/LERENG+GREEN+VIEW/data=!4m2!3m1!1s0x2fd4d520d1f13e7f:0xea1fcd1eaf836fb4
+https://www.google.com/maps/place/Taman+Wisata+Bilih+Singkarak/data=!4m2!3m1!1s0x2fd52bd629e966d3:0xc244a73428bc589
+https://www.google.com/maps/place/Fort+van+der+Capellen/data=!4m2!3m1!1s0x2fd52d69c93e688d:0xb3557d7f933ce548
+https://www.google.com/maps/place/Istano+Basa+Pagaruyung/data=!4m2!3m1!1s0x2e2ad2d2be29c7dd:0xb19e3eb230efffbc
+https://www.google.com/maps/place/Desa+Terindah+Pariangan/data=!4m2!3m1!1s0x2fd52f28fa58a2cf:0x90bd05729d14f37a
+https://www.google.com/maps/place/Padang+Beach/data=!4m2!3m1!1s0x2fd4b93318fd31bf:0x15db501c7239061f
+https://www.google.com/maps/place/Kota+Tua+Padang+%D0%9E%D1%82%D0%BA%D1%80%D1%8B%D1%82%D0%BE/data=!4m2!3m1!1s0x2fd4b957b7e55f61:0x28aa73ee11e40dac
+https://www.google.com/maps/place/Siti+Nurbaya+Bridge/data=!4m2!3m1!1s0x2fd4b9bbc18a4007:0x428848f48958c71e
+https://www.google.com/maps/place/PANAROMA+DANAU+ATEH/data=!4m2!3m1!1s0x2e2b50f544262bcf:0x516e75efad07f9d6
+https://www.google.com/maps/place/Wisata+alam+desa+danau+tinggi/data=!4m2!3m1!1s0x2e2dab753e700661:0x423071f1c7fd02b3
+https://www.google.com/maps/place/Bukit+Cinta+Kayu+Aro/data=!4m2!3m1!1s0x2e2cffe583c220bf:0x931c81c3794cb407
+https://www.google.com/maps/place/Wisma+dua+cahaya/data=!4m2!3m1!1s0x2e2d970027cb14eb:0x48706c2c2c25be87
+https://www.google.com/maps/place/Air+Terjun+Arai+Indah/data=!4m2!3m1!1s0x2e2da7e0d448ba27:0x3d2ec6bc1ef33490
+https://www.google.com/maps/place/Pantai+Indah+Koto+Petai/data=!4m2!3m1!1s0x2e2d985f649d2451:0xdd940683de22f43b
+https://www.google.com/maps/place/Gao+Semurup/data=!4m2!3m1!1s0x2e2da79d30f0154d:0xd11acd73178bcbd8
+https://www.google.com/maps/place/Air+Panas+Semurup/data=!4m2!3m1!1s0x2e2da777cd687275:0x317513eb73e20c09
+https://www.google.com/maps/place/Taman+Bukit+Tengah/data=!4m2!3m1!1s0x2e2da802e50617b7:0x3161c51b7cb5726c
+https://www.google.com/maps/place/Bukit+Khayangan,+Sungai+Penuh,+Kerinci/data=!4m2!3m1!1s0x2e2d9f789cb8069f:0xa776e59ccf64142c
+https://www.google.com/maps/place/Air+terjun+sungai+licin/data=!4m2!3m1!1s0x2e2cf900107f35d1:0x3143bdcb75679e17
+https://www.google.com/maps/place/Panorama+gunung+Kerinci/data=!4m2!3m1!1s0x2e2d010011dbba73:0x112172c9c1b785e0
+https://www.google.com/maps/place/Panorama+Bukit+Tirai+Embun+Danau+Tinggi/data=!4m2!3m1!1s0x2e2d01869350a62b:0xe4110c041e5c691c
+https://www.google.com/maps/place/Pos+Wisata+Rawa+Bento/data=!4m2!3m1!1s0x2e2c55eea0824e8d:0xd403674a6992181
+https://www.google.com/maps/place/Air+Terjun+Telun+Berasap/data=!4m2!3m1!1s0x2e2cf88302b9538f:0x65be8f0e60f88d3b
+https://www.google.com/maps/place/%D0%90%D1%80%D0%BE%D0%BC%D0%B0+%D0%9F%D0%B5%D0%BA%D0%BA%D0%BE/data=!4m2!3m1!1s0x2e2d01e138bc7517:0xf4f1eea5ca80ec2a
+https://www.google.com/maps/place/Kebun+Teh+Kayu+Aro/data=!4m2!3m1!1s0x2e2d01aad86994e1:0x4bd4c2a687bdf22a
+https://www.google.com/maps/place/Kayu+Aro/data=!4m2!3m1!1s0x2e2cfe6488bee4c7:0x12c862cacb943766
+https://www.google.com/maps/place/Pantai+Abrasi+Pasar+Ipuh/data=!4m2!3m1!1s0x2e3252e1cf5544ad:0x915281760e42a0bd
+https://www.google.com/maps/place/Pantai+Air+Punggur/data=!4m2!3m1!1s0x2e328d86b3757a37:0x1e88d5e92bad7e47
+https://www.google.com/maps/place/Pantai+Sungai+Suci/data=!4m2!3m1!1s0x2e36b2895e808e7f:0xd4fdc344760a9391
+https://www.google.com/maps/place/Kebun+Teh+Kabawetan/data=!4m2!3m1!1s0x2e313392e3d066d7:0xc1385ac5d1fff6a5
+https://www.google.com/maps/place/Tes+Lake/data=!4m2!3m1!1s0x2e316c298ee6b589:0xdb294876f5e71a11
+https://www.google.com/maps/place/Mount+Kaba/data=!4m2!3m1!1s0x2e312fe16eca5943:0xb46ba8e1fdef511c
+https://www.google.com/maps/place/Ombilin+Coal+Mining+Heritage+of+Sawahlunto/data=!4m2!3m1!1s0x2e2b2f00005c6d59:0x4445bec1ae9cb4c1</textarea>
+<button id="run">Получить координаты</button>
+<button id="copy">Скопировать результат</button>
 <pre id="out">Результат появится здесь.</pre>
 <script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+let last='';
 document.getElementById('run').addEventListener('click', async()=>{
  const key=document.getElementById('key').value.trim();
- const queries=document.getElementById('q').value.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+ const urls=document.getElementById('q').value.split(/\n+/).map(x=>x.trim()).filter(Boolean);
  const out=document.getElementById('out');
  if(!key){out.textContent='Вставь API key.';return}
  out.textContent='Запросы выполняются...'; let result=[];
- for(let i=0;i<queries.length;i++){
-  const textQuery=queries[i];
+ for(let i=0;i<urls.length;i++){
+  const url=urls[i];
+  const decoded=decodeURIComponent(url);
+  let name='';
+  const m=decoded.match(/\/maps\/place\/([^/]+)\/data=/);
+  if(m) name=m[1].replace(/\+/g,' ');
+  else if(url.includes('/maps/search/')) name=url.split('/maps/search/')[1];
+  else name=url;
   try{
-   const r=await fetch('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'Content-Type':'application/json','X-Goog-Api-Key':key,'X-Goog-FieldMask':'places.id,places.displayName,places.formattedAddress,places.location'},body:JSON.stringify({textQuery,pageSize:1})});
+   const r=await fetch('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'Content-Type':'application/json','X-Goog-Api-Key':key,'X-Goog-FieldMask':'places.id,places.displayName,places.formattedAddress,places.location'},body:JSON.stringify({textQuery:`${name}, Indonesia`,pageSize:1})});
    const j=await r.json();
-   if(!r.ok) result.push(`${i+1}. ${textQuery}\nERROR ${r.status}: ${JSON.stringify(j)}`);
-   else if(!j.places?.length) result.push(`${i+1}. ${textQuery}\nНЕ НАЙДЕНО`);
-   else {const p=j.places[0],loc=p.location||{};result.push(`${i+1}. ${textQuery}\n→ ${p.displayName?.text||''}\n→ ${p.formattedAddress||''}\n→ ${loc.latitude}, ${loc.longitude}\n→ ${p.id||''}`)}
-  }catch(e){result.push(`${i+1}. ${textQuery}\nERROR: ${e}`)}
+   if(!r.ok) result.push(`${i+1}. ${name}\nERROR ${r.status}: ${JSON.stringify(j)}`);
+   else if(!j.places?.length) result.push(`${i+1}. ${name}\nНЕ НАЙДЕНО`);
+   else {const p=j.places[0],loc=p.location||{};result.push(`${i+1}. ${name}\n→ ${p.displayName?.text||''}\n→ ${p.formattedAddress||''}\n→ ${loc.latitude}, ${loc.longitude}\n→ ${p.id||''}`)}
+  }catch(e){result.push(`${i+1}. ${name}\nERROR: ${e}`)}
   out.textContent=result.join('\n\n');
  }
+ last=result.join('\n\n');
 });
+document.getElementById('copy').addEventListener('click',async()=>{if(!last)return;try{await navigator.clipboard.writeText(last);alert('Скопировано')}catch(e){prompt('Скопируй результат:',last)}});
 </script>
 </body>
 </html>
