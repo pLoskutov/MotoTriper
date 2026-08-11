@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Places — тест координат</title>
+<style>body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:20px;line-height:1.4}input,textarea,button{font-size:16px;width:100%;box-sizing:border-box;margin:6px 0;padding:10px}textarea{height:180px}button{font-weight:600}pre{white-space:pre-wrap;word-break:break-word;background:#f4f4f4;padding:12px;border-radius:8px}</style>
+</head>
+<body>
+<h2>Google Places — проверка координат</h2>
+<p>API key не сохраняется и используется только для запросов к Google Places API.</p>
+<label>Google API key</label>
+<input id="key" type="password" placeholder="Вставь API key">
+<label>Запросы — один объект на строку</label>
+<textarea id="q">Sianok Valley Panoramic, Bukittinggi, West Sumatra, Indonesia
+Puncak Lawang, Agam, West Sumatra, Indonesia
+Puncak Taruko, Agam, West Sumatra, Indonesia
+Panorama Koto Barangai, West Sumatra, Indonesia
+Tapian Tabiang Barasok, West Sumatra, Indonesia
+Sarasah Bunta Waterfall, Lima Puluh Kota, West Sumatra, Indonesia
+Harau Getaway, Harau, Lima Puluh Kota, West Sumatra, Indonesia
+Batu Lubang Sibolga, Sibolga, North Sumatra, Indonesia
+Goa Ngalau Indah, Payakumbuh, West Sumatra, Indonesia
+Tugu Khatulistiwa Koto Alam, Lima Puluh Kota, West Sumatra, Indonesia
+Ekuator - Alahan mati, West Sumatra, Indonesia
+Guo Kalaluang, Padang, West Sumatra, Indonesia
+Panorama Malalak, Agam, West Sumatra, Indonesia
+Kelok 12, West Sumatra, Indonesia
+Kelok 9, Lima Puluh Kota, West Sumatra, Indonesia
+Kelok 44 Sumbar, Agam, West Sumatra, Indonesia
+Lake Diatas, Solok, West Sumatra, Indonesia
+Lake Dibawah, Solok, West Sumatra, Indonesia
+Lake Gunung Tujuh, Kerinci, Jambi, Sumatra, Indonesia
+Stasiun Lubuk Linggau, Lubuklinggau, South Sumatra, Indonesia</textarea>
+<button id="run">Проверить</button>
+<pre id="out">Результат появится здесь.</pre>
+<script>
+document.getElementById('run').addEventListener('click', async()=>{
+ const key=document.getElementById('key').value.trim();
+ const queries=document.getElementById('q').value.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+ const out=document.getElementById('out');
+ if(!key){out.textContent='Вставь API key.';return}
+ out.textContent='Запросы выполняются...'; let result=[];
+ for(let i=0;i<queries.length;i++){
+  const textQuery=queries[i];
+  try{
+   const r=await fetch('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'Content-Type':'application/json','X-Goog-Api-Key':key,'X-Goog-FieldMask':'places.id,places.displayName,places.formattedAddress,places.location'},body:JSON.stringify({textQuery,pageSize:1})});
+   const j=await r.json();
+   if(!r.ok) result.push(`${i+1}. ${textQuery}\nERROR ${r.status}: ${JSON.stringify(j)}`);
+   else if(!j.places?.length) result.push(`${i+1}. ${textQuery}\nНЕ НАЙДЕНО`);
+   else {const p=j.places[0],loc=p.location||{};result.push(`${i+1}. ${textQuery}\n→ ${p.displayName?.text||''}\n→ ${p.formattedAddress||''}\n→ ${loc.latitude}, ${loc.longitude}\n→ ${p.id||''}`)}
+  }catch(e){result.push(`${i+1}. ${textQuery}\nERROR: ${e}`)}
+  out.textContent=result.join('\n\n');
+ }
+});
+</script>
+</body>
+</html>
